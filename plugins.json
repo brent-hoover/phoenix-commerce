@@ -1,3 +1,3 @@
 {
-  "example-plugin": "../packages/example-plugin/index.js"
+  "example-plugin": "../packages/example-plugin"
 }
