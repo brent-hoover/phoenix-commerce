@@ -1,4 +1,4 @@
-# bun-commerce
+# phoenix-commerce
 
 To install dependencies:
 
