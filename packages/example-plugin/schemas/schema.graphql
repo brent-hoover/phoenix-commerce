@@ -1,0 +1,3 @@
+type Example {
+  thing: String!
+}
