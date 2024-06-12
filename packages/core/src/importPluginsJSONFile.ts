@@ -4,7 +4,7 @@ import log from "../../logger/index.ts";
 
 export default async function importPluginsJSONFile(pluginsFile: string) {
   let absolutePluginsFile;
-  const plugins = {};
+  const plugins: object = {};
 
   const caller = stack()[1];
   const callerFileName = caller.getFileName();
@@ -17,17 +17,20 @@ export default async function importPluginsJSONFile(pluginsFile: string) {
   for (const [name, pluginPath] of Object.entries(pluginRefs)) {
     let plugin;
     try {
+      // @ts-ignore
       ({ default: plugin } = await import(pluginPath));
     } catch (err) {
       ({ default: plugin } = await import(
         path.join(
           path.dirname(absolutePluginsFile),
           "node_modules",
-          pluginPath,
+          <string>pluginPath,
           "index.js",
         )
       ));
     }
     log(`Installed plugin ${name} from ${pluginPath}`);
+    plugins[name] = plugin;
   }
+  return plugins;
 }
